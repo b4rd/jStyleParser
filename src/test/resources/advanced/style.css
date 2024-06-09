@@ -21,6 +21,22 @@ body {
 	margin-left: -15px;
 }
 
+#decorated {
+	text-decoration: underline overline wavy red;
+}
+
+#decoratedcolor {
+	text-decoration-color: red;
+}
+
+#decoratedline {
+	text-decoration-line: underline;
+}
+
+#decoratedstyle {
+	text-decoration-style: dotted;
+}
+
 @page {
     margin-left: 2cm;
     margin-top: 3in;

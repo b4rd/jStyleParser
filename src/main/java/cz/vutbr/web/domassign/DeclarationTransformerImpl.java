@@ -1255,22 +1255,27 @@ public class DeclarationTransformerImpl implements DeclarationTransformer {
 	@SuppressWarnings("unused")
 	private boolean processTextDecoration(Declaration d,
 			Map<String, CSSProperty> properties, Map<String, Term<?>> values) {
+		Variator variator = new TextDecorationVariator();
+		return variator.varyList(d, properties, values);
+	}
 
-		final Set<TextDecoration> availableDecorations = EnumSet.of(
-				TextDecoration.BLINK, TextDecoration.LINE_THROUGH,
-				TextDecoration.OVERLINE, TextDecoration.UNDERLINE);
+	private boolean processTextDecorationLine(Declaration d,
+											  Map<String, CSSProperty> properties, Map<String, Term<?>> values) {
+		final Set<TextDecorationLine> availableDecorations = EnumSet.of(
+				TextDecorationLine.BLINK, TextDecorationLine.LINE_THROUGH,
+				TextDecorationLine.OVERLINE, TextDecorationLine.UNDERLINE);
 
 		// it one term
 		if (d.size() == 1) {
-			return Decoder.genericOneIdent(TextDecoration.class, d, properties);
+			return Decoder.genericOneIdent(TextDecorationLine.class, d, properties);
 		}
 		// there are more terms, we have to construct list
 		else {
 			TermList list = tf.createList();
-			TextDecoration dec = null;
+			TextDecorationLine dec = null;
 			for (Term<?> term : d.asList()) {
 				if (term instanceof TermIdent
-						&& (dec = Decoder.genericPropertyRaw(TextDecoration.class,
+						&& (dec = Decoder.genericPropertyRaw(TextDecorationLine.class,
 								availableDecorations, (TermIdent) term)) != null) {
 					// construct term with value of parsed decoration
 					list.add(tf.createTerm(dec));
@@ -1278,12 +1283,23 @@ public class DeclarationTransformerImpl implements DeclarationTransformer {
 					return false;
 			}
 			if (!list.isEmpty()) {
-				properties.put("text-decoration", TextDecoration.list_values);
+				properties.put("text-decoration", TextDecorationLine.list_values);
 				values.put("text-decoration", list);
 				return true;
 			}
 			return false;
 		}
+	}
+
+	private boolean processTextDecorationStyle(Declaration d,
+											  Map<String, CSSProperty> properties, Map<String, Term<?>> values) {
+		return Decoder.genericOneIdent(TextDecorationStyle.class, d, properties);
+	}
+
+	private boolean processTextDecorationColor(Declaration d,
+											   Map<String, CSSProperty> properties, Map<String, Term<?>> values) {
+		return Decoder.genericOneIdentOrColor(TextDecorationColor.class, TextDecorationColor.color, d, properties,
+				values);
 	}
 
 	@SuppressWarnings("unused")

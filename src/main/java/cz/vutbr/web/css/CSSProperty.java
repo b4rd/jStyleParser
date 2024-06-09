@@ -3130,13 +3130,85 @@ public interface CSSProperty {
 	}
 
 	public enum TextDecoration implements CSSProperty {
+		component_values(""), INHERIT("inherit"), INITIAL("initial"), UNSET("unset");
+
+		private final String text;
+
+		TextDecoration(String text) {
+			this.text = text;
+		}
+
+
+		@Override
+		public boolean inherited() {
+			return false;
+		}
+
+		@Override
+		public boolean equalsInherit() {
+			return this == INHERIT;
+		}
+
+		@Override
+		public boolean equalsInitial() {
+			return this == INITIAL;
+		}
+
+		@Override
+		public boolean equalsUnset() {
+			return this == UNSET;
+		}
+
+		@Override
+		public ValueType getValueType() {
+			return ValueType.LIST;
+		}
+	}
+
+	public enum TextDecorationStyle implements CSSProperty {
+		SOLID("solid"), DOUBLE("double"), DOTTED("dotted"), DASHED("line-through"), WAVY("wavy"),
+		INHERIT("inherit"), INITIAL("initial"), UNSET("unset");
+
+		private final String text;
+
+		TextDecorationStyle(String text) {
+			this.text = text;
+		}
+
+		@Override
+		public boolean inherited() {
+			return false;
+		}
+
+		@Override
+		public boolean equalsInherit() {
+			return this == INHERIT;
+		}
+
+		@Override
+		public boolean equalsInitial() {
+			return this == INITIAL;
+		}
+
+		@Override
+		public boolean equalsUnset() {
+			return this == UNSET;
+		}
+
+		@Override
+		public ValueType getValueType() {
+			return ValueType.SIMPLE;
+		}
+	}
+
+	public enum TextDecorationLine implements CSSProperty {
 		list_values(""), UNDERLINE("underline"), OVERLINE("overline"), BLINK(
 				"blink"), LINE_THROUGH("line-through"), NONE("none"), INHERIT(
 				"inherit"), INITIAL("initial"), UNSET("unset");
 
 		private String text;
 
-		private TextDecoration(String text) {
+		private TextDecorationLine(String text) {
 			this.text = text;
 		}
 
@@ -3161,6 +3233,42 @@ public interface CSSProperty {
             return ValueType.SIMPLE;
         }
         
+		@Override
+		public String toString() {
+			return text;
+		}
+	}
+
+	public enum TextDecorationColor implements CSSProperty {
+		color(""), INHERIT("inherit"), INITIAL("initial"), UNSET("unset");
+
+		private String text;
+
+		private TextDecorationColor(String text) {
+			this.text = text;
+		}
+
+		public boolean inherited() {
+			return false;
+		}
+
+		public boolean equalsInherit() {
+			return this == INHERIT;
+		}
+
+		public boolean equalsInitial() {
+			return this == INITIAL;
+		}
+
+		public boolean equalsUnset() {
+			return this == UNSET;
+		}
+
+		@Override
+		public ValueType getValueType() {
+			return ValueType.SIMPLE;
+		}
+
 		@Override
 		public String toString() {
 			return text;

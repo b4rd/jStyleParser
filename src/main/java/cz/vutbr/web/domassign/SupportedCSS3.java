@@ -187,7 +187,9 @@ public class SupportedCSS3 implements SupportedCSS {
 		props.put("font-style", FontStyle.NORMAL);
 		props.put("font-variant", FontVariant.NORMAL);
 		props.put("font-weight", FontWeight.NORMAL);
-		props.put("text-decoration", TextDecoration.NONE);
+		props.put("text-decoration-line", TextDecorationLine.NONE);
+		props.put("text-decoration-style", TextDecorationStyle.SOLID);
+		props.put("text-decoration-color", TextDecorationColor.color);
 		props.put("text-transform", TextTransform.NONE);
 
 		// text spacing

@@ -3,6 +3,9 @@ package test;
 import java.io.IOException;
 import java.util.Date;
 
+import cz.vutbr.web.css.*;
+import cz.vutbr.web.css.CSSProperty.TextDecorationLine;
+import cz.vutbr.web.css.CSSProperty.TextDecorationStyle;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,13 +15,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import cz.vutbr.web.css.CSSException;
-import cz.vutbr.web.css.CSSFactory;
-import cz.vutbr.web.css.NodeData;
-import cz.vutbr.web.css.StyleSheet;
-import cz.vutbr.web.css.TermColor;
-import cz.vutbr.web.css.TermFactory;
-import cz.vutbr.web.css.TermList;
 import cz.vutbr.web.css.CSSProperty.FontFamily;
 import cz.vutbr.web.css.Term.Operator;
 import cz.vutbr.web.domassign.Analyzer;
@@ -105,4 +101,43 @@ public class AdvancedCSSTest {
 				data.getValue(TermColor.class, "border-bottom-color"));
 	}
 
+	@Test
+	public void testTextDecoration() {
+
+		NodeData data = decl.get(elements.getElementById("decorated"));
+
+		Assert.assertEquals("", TextDecorationLine.UNDERLINE,
+				data.getProperty("text-decoration-line"));
+		Assert.assertEquals("", TextDecorationStyle.WAVY,
+				data.getProperty("text-decoration-style"));
+		Assert.assertEquals("", tf.createColor(255,255,255),
+				data.getValue(TermColor.class, "text-decoration-color"));
+	}
+
+	@Test
+	public void testTextDecorationStyle() {
+
+		NodeData data = decl.get(elements.getElementById("decoratedstyle"));
+
+		Assert.assertEquals("", TextDecorationStyle.DOTTED,
+				data.getProperty("text-decoration-style"));
+	}
+
+	@Test
+	public void testTextDecorationLine() {
+
+		NodeData data = decl.get(elements.getElementById("decoratedline"));
+
+		Assert.assertEquals("", TextDecorationLine.UNDERLINE,
+				data.getProperty("text-decoration-line"));
+	}
+
+	@Test
+	public void testTextDecorationColor() {
+
+		NodeData data = decl.get(elements.getElementById("decoratedcolor"));
+
+		Assert.assertEquals("", tf.createColor(255,0,0),
+				data.getValue(TermColor.class, "text-decoration-color"));
+	}
 }
